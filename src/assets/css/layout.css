@@ -8,13 +8,31 @@
 
 /* Top Margins */
 .bs-mt-lg {
-  @apply mt-16 lg:mt-32
+  margin-top: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .bs-mt-lg {
+    margin-top: 8rem;
+  }
 }
 
 .bs-mt-md {
-  @apply mt-10 lg:mt-16
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .bs-mt-md {
+    margin-top: 4rem;
+  }
 }
 
 .bs-mt-sm {
-  @apply mt-6 lg:mt-8
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .bs-mt-sm {
+    margin-top: 2rem;
+  }
 }

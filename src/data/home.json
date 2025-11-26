@@ -1,14 +1,14 @@
 {
-  "hero_title": "blackspike astro landing page",
-  "hero_content": "<p><strong>A free Astro landing theme made with Tailwind</strong> to help kick start your Astro website.</p><p>Uses modern CSS and HTML features for added zip, plus a slick swiper carousel. All in Astro JSX.</p>",
-  "services_title": "Our services",
-  "clients_title": "Trusted by some great companies",
-  "testimonials_title": "Clients ♥ us",
-  "case_studies_title": "Case studies",
-  "pricing_title": "We do design retainers",
-  "quote_content": "This <strong>design agency</strong> is a <strong>game changer</strong>. Its <strong>creative vision</strong>, <strong>user-focused approach</strong>, and <strong>seamless collaboration</strong> have <strong>transformed</strong> the way we <strong>build our brand</strong>. It’s <strong>not just an agency</strong> — it’s a <strong>powerful partner</strong> that <strong>delivers real results</strong>.",
-  "quote_cite": "Sean Higgins",
-  "quote_role": "CTO, Interia",
+  "hero_title": "riff<br>raff",
+  "hero_content": "<p><strong>Don't read the room. Read the street.</strong></p><p>We are Riff-Raff: a new research outfit driven by an obsession with the extra mile that most agencies refuse to walk. We trade the boardroom for the back alley, the focus group for the dive bar, the cliches of the expat for the wisdom of locals. Through narratives written with ambition and precision, we translate the overwhelming reality of social life in Japan into actionable insight to guide your decisionmaking process. We don't just give you findings; we give you the Japan that exists when the meeting ends.</p>",
+  "services_title": "The Excavation",
+  "clients_title": "Co-Conspirators",
+  "testimonials_title": "The Word on the Street",
+  "case_studies_title": "Field Notes",
+  "pricing_title": "Engagement Models",
+  "quote_content": "They didn't just give us data; they gave us the <strong>soul of the consumer</strong>. RiffRaff took us into the <strong>homes and hearts of Tokyo</strong> in a way no other agency could. They found the <strong>insight behind the insight</strong>.",
+  "quote_cite": "Sarah Jenkins",
+  "quote_role": "VP of Innovation, TechGlobal",
   "quote_image": "/content-images/quote-man.avif",
-  "faq_title": "Frequently Asked Questions"
+  "faq_title": "Interrogations"
 }

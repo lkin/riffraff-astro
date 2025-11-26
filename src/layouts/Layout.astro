@@ -9,7 +9,7 @@ import "../assets/css/buttons.css"
 import { Font } from 'astro:assets';
 
 import Image from "astro/components/Image.astro"
-import bg_image from "../assets/theme-images/hero-image.jpg"
+import bg_image from "../assets/theme-images/tokyoluv-CsMNgdHXzFs-unsplash.jpg"
 
 import global_settings from "../data/global_settings.json"
 
@@ -24,14 +24,14 @@ const { title, description } = Astro.props
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
 
-    <title>{ title ?? global_settings.title }</title>
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.json" />
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
 
     <meta name="description" content={ description ?? global_settings.description } />
     <meta name="theme-color" content={ global_settings.theme_color } />
@@ -44,32 +44,17 @@ const { title, description } = Astro.props
     />
 
     <Font cssVariable="--font-inter" preload />
-    <Font cssVariable="--font-inter-display" preload />
-
+    <Font cssVariable="--font-neon" preload />
   </head>
-
   <body id="top">
-
-    <!-- Skip link -->
     <a class="fixed -top-20 focus-visible:top-0 p-3 bg-black/90 transition-all duration-300" href="#main">Skip to content</a>
-
-    <!-- bg image -->
-    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920} class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-20 mask-b-from-50%" loading="eager" />
-
-    <!-- Header -->
-    <HeaderMain settings={ global_settings } />
-
-    <!-- Main slot -->
+    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920} class="absolute min-h-svh object-cover inset-0 bottom-auto -z-1 w-full h-auto opacity-80 mask-b-from-50%" loading="eager" />
+    <!-- <HeaderMain settings={ global_settings } /> -->
     <main id="main">
       <slot />
     </main>
-
-    <!-- Footer -->
-    <FooterMain settings={ global_settings } />
-
-    <!-- Demo dialog modal -->
+     <!-- <FooterMain settings={ global_settings } /> -->
     <DialogModal id="demo" content={ global_settings.demo }>
-
   </body>
 </html>
 

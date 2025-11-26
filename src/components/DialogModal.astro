@@ -8,15 +8,22 @@ const { content } = Astro.props
 
 <dialog id="demo" class="fixed inset-0 bg-bs-surface-0 m-auto z-50 p-6 md:p-12 rounded-xl w-full max-w-[95%] md:max-w-lg">
 
+  <!-- Success Message -->
+  <div id="form-success" class="hidden flex-col gap-4 text-center py-12">
+    <h3 class="text-2xl font-bold text-bs-surface-100">Message Sent!</h3>
+    <p class="bs-body-text">Thanks for reaching out. We'll get back to you shortly.</p>
+    <button type="button" onclick="this.closest('dialog').close('close')" class="bs-btn self-center mt-4">Close</button>
+  </div>
+
   <!-- Form -->
-  <form method="dialog" class="flex gap-6 flex-col">
+  <form id="contact-form" method="POST" action="https://script.google.com/macros/s/AKfycbyf4KaOqoepK-Cd7FitrjDIVmbMMwtI-d7EteFgMHohRnEIxAEJrMC8v0o6eAdEf9w/exec" class="flex gap-6 flex-col">
 
     <!-- Header -->
     <h2 class="text-2xl flex justify-between items-center gap-4">
 
       <span>{ content.title }</span>
 
-      <button onclick="this.closest('dialog').close('close')" aria-label="Close"
+      <button type="button" onclick="this.closest('dialog').close('close')" aria-label="Close"
         class="bs-btn rounded-full !p-0 flex items-center justify-center h-10 w-10">
 
         <X class="scale-75 opacity-75" width="32" height="32" />
@@ -39,7 +46,9 @@ const { content } = Astro.props
 
         <input
           id="name"
+          name="name"
           type="text"
+          required
           class="border-2 rounded-lg bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
           placeholder="Your name"
         >
@@ -49,6 +58,7 @@ const { content } = Astro.props
 
         <input
           id="company"
+          name="company"
           type="text"
           class="border-2 rounded-lg bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
           placeholder="Your company"
@@ -59,17 +69,61 @@ const { content } = Astro.props
 
         <input
           id="email"
+          name="email"
           type="email"
+          required
           class="border-2 rounded-lg bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
           placeholder="Your email"
         >
 
         <!-- Submit -->
-        <button class="bs-btn form-input px-4 py-3">{ content.cta }</button>
+        <button type="submit" class="bs-btn form-input px-4 py-3">{ content.cta }</button>
 
     </div>
 
   </form>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('form-success');
+
+  if (form && successMsg) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const action = form.action;
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      try {
+        await fetch(action, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors' // Important for Google Apps Script
+        });
+
+        // Show success message
+        form.classList.add('hidden');
+        successMsg.classList.remove('hidden');
+        successMsg.classList.add('flex');
+        form.reset();
+
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Something went wrong. Please try again.');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        }
+      }
+    });
+  }
+</script>
 
 </dialog>
 

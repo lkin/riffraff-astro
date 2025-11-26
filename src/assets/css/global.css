@@ -2,7 +2,7 @@
 
 @theme {
 
-  --font-display: var(--font-inter-display), "ui-sans-serif", "system-ui", "sans-serif";
+  --font-display: var(--font-neon), "ui-sans-serif", "system-ui", "sans-serif";
   --font-body: var(--font-inter), "ui-sans-serif", "system-ui", "sans-serif";
 
   --color-bs-surface-0: #121212;

@@ -12,10 +12,10 @@ import PricingSection from "../components/PricingSection.astro"
 import QuoteSection from "../components/QuoteSection.astro"
 import TestimonialsSection from "../components/TestimonialsSection.astro"
 
-import caseStudies from "../data/case_studies.json"
-import clients from "../data/clients.json"
+import { caseStudies } from "../data/case_studies.ts"
+import { clients } from "../data/clients.ts"
 import faq from "../data/faq.json"
-import services from "../data/services.json"
+import { services } from "../data/services.ts"
 import home from "../data/home.json"
 import pricing from "../data/pricing.json"
 import global_settings from "../data/global_settings.json"
@@ -34,40 +34,41 @@ import testimonials from "../data/testimonials.json"
 
   <ServicesCarousel
     services={ services }
+    settings={ global_settings }
     title={ home.services_title }
   />
 
-  <ClientsSection
+  <!-- <ClientsSection
     clients={ clients }
     title={ home.clients_title }
-  />
+  /> -->
 
-  <QuoteSection
+  <!-- <FaqSection
+    faq={ faq }
+    title={ home.faq_title }
+  /> -->
+  
+   <!-- <QuoteSection
     cite={ home.quote_cite }
     content={ home.quote_content }
     image={ home.quote_image }
     role={ home.quote_role }
-  />
+  /> -->
 
-  <CaseStudiesSection
+  <!-- <CaseStudiesSection
     caseStudies={ caseStudies }
     title={ home.case_studies_title }
-  />
+  /> -->
 
   <TestimonialsSection
     testimonials={ testimonials }
     title={ home.testimonials_title }
   />
 
-  <PricingSection
+  <!--  <PricingSection
     pricing={ pricing }
     title={ home.pricing_title }
-  />
-
-  <FaqSection
-    faq={ faq }
-    title={ home.faq_title }
-  />
+  /> -->
 
   <NewsletterSection newsletter={newsletter} />
 

@@ -1,12 +1,12 @@
 {
-  "title": "blackspike astro landing page",
-  "description": "A free Astro landing theme made with Tailwind",
+  "title": "riff-raff",
+  "description": "boutique market research agency based in tokyo, japan",
   "social_image": "/1200x630.jpg",
-  "base_url": "https://astro-theme.blackspike.com",
+  "base_url": "https://riff-raff.tokyo",
   "demo": {
-    "title": "Need design?",
-    "content": "<strong>Get a guided tour through our services</strong>, and find out how you and your team can change the way you work, forever.",
-    "cta": "Book a call"
+    "title": "Ready to get your hands dirty?",
+    "content": "<p>Most agencies will tell you what you want to hear. We'll tell you what you need to know. We're ready to breach the walls if you are.</p>",
+    "cta": "Let's talk"
   },
   "theme_color": "#18181b",
   "nav": [
@@ -31,7 +31,6 @@
       "link": "/#newsletter"
     }
   ],
-
   "social_links": [
     {
       "title": "Twitter / X",

@@ -1,27 +1,26 @@
 ---
-import Image from "astro/components/Image.astro"
-import bg_image from "../assets/theme-images/hero-image.jpg"
-
 const { newsletter } = Astro.props
-
 ---
 
 <aside class="@container bs-container bs-mt-lg text-center" id="newsletter">
 
-  <!-- Wrapper -->
-  <div class="p-6 md:py-16 relative rounded-xl overflow-hidden flex justify-center isolate w-full h-full">
-
-    <!-- BG image -->
-    <Image src={ bg_image } alt="" format="avif" height={1080} width={1920} class="rounded-xl overflow-hidden w-full h-full object-cover object-left absolute inset-0 opacity-50" />
-
-    <!-- Content -->
-    <div class="z-10 p-6 md:p-10 lg:p-20 rounded-xl md:max-w-lg flex flex-col gap-6 bg-bs-surface-0/95 h-full">
+  <!-- Content -->
+  <div class="p-6 md:p-10 lg:p-20 rounded-xl md:max-w-lg mx-auto flex flex-col gap-6 bg-bs-surface-1 border-2 border-bs-surface-3">
 
       <!-- Title -->
       <h2 class="bs-h2" set:html={ newsletter.title } />
 
-      <!-- Intro -->
-      <div class="bs-body-text flex-grow" set:html={ newsletter.content } />
+      <!-- Success Message (initially hidden) -->
+      <div id="nl-success" class="hidden flex-col gap-4 text-center py-6">
+        <h3 class="text-2xl font-bold text-bs-foreground-light" id="nl-success-title"></h3>
+        <p class="bs-body-text" id="nl-success-message"></p>
+        <button type="button" id="nl-reset" class="bs-btn-secondary self-center mt-4">Send another message</button>
+      </div>
+
+      <!-- Form Content -->
+      <div id="nl-form-content">
+        <!-- Intro -->
+        <div class="bs-body-text flex-grow" set:html={ newsletter.content } />
 
       <!-- Form -->
       <form class="flex gap-4 flex-col" action="">
@@ -29,23 +28,133 @@ const { newsletter } = Astro.props
         <label class="sr-only" for="nl-name">Name</label>
         <input
           id="nl-name"
+          name="name"
           class="border-2 rounded-lg text-center bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
           placeholder="Your name">
+
+        <label class="sr-only" for="nl-company">Company</label>
+        <input
+          id="nl-company"
+          name="company"
+          class="border-2 rounded-lg text-center bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
+          placeholder="Your company">
 
         <label class="sr-only" for="nl-email">Email</label>
         <input
           id="nl-email"
+          name="email"
           type="email"
           class="border-2 rounded-lg text-center bg-bs-surface-0 border-bs-surface-3 form-input px-4 py-3"
           placeholder="Your email">
 
-        <input type="submit" value={ newsletter.cta } class="bs-btn form-input px-4 py-3">
+        <input type="hidden" id="nl-action" name="action" value="">
+
+        <div class="flex gap-3 flex-col sm:flex-row">
+          <button 
+            type="button"
+            data-action="subscribe"
+            class="bs-btn form-input px-4 py-3 flex-1">
+            Get on the list
+          </button>
+          
+          <button 
+            type="button"
+            data-action="reach-out"
+            class="bs-btn-secondary form-input px-4 py-3 flex-1">
+            Reach out
+          </button>
+        </div>
 
       </form>
 
-    </div>
+      </div><!-- End of nl-form-content -->
 
-  </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.querySelector('#newsletter form');
+          const submitButtons = form?.querySelectorAll('button[data-action]');
+          const nameInput = document.getElementById('nl-name');
+          const companyInput = document.getElementById('nl-company');
+          const emailInput = document.getElementById('nl-email');
+          const formContent = document.getElementById('nl-form-content');
+          const successDiv = document.getElementById('nl-success');
+          const successTitle = document.getElementById('nl-success-title');
+          const successMessage = document.getElementById('nl-success-message');
+          const resetButton = document.getElementById('nl-reset');
+
+          // Handle reset button
+          resetButton?.addEventListener('click', () => {
+            successDiv?.classList.add('hidden');
+            successDiv?.classList.remove('flex');
+            formContent?.classList.remove('hidden');
+            form?.reset();
+          });
+
+          submitButtons?.forEach(button => {
+            button.addEventListener('click', async (e) => {
+              e.preventDefault();
+              
+              const action = button.dataset.action;
+              
+              // Basic validation
+              if (!emailInput?.value || !nameInput?.value) {
+                alert('Please fill in your name and email');
+                return;
+              }
+
+              // Disable button and show loading state
+              const originalText = button.textContent;
+              button.disabled = true;
+              button.textContent = action === 'subscribe' ? 'Subscribing...' : 'Sending...';
+
+              try {
+                if (action === 'subscribe') {
+                  // Newsletter subscription logic
+                  // TODO: Replace with your newsletter API endpoint
+                  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+                  
+                  // Show subscribe success message
+                  successTitle.textContent = "You're on the list!";
+                  successMessage.textContent = `Thanks, ${nameInput.value}. We'll keep you posted with raw, unfiltered insights from Japan's market.`;
+                  
+                } else if (action === 'reach-out') {
+                  // Contact form - POST to Google Apps Script
+                  const formData = new FormData();
+                  formData.append('name', nameInput.value);
+                  formData.append('company', companyInput?.value || '');
+                  formData.append('email', emailInput.value);
+                  
+                  await fetch('https://script.google.com/macros/s/AKfycbyf4KaOqoepK-Cd7FitrjDIVmbMMwtI-d7EteFgMHohRnEIxAEJrMC8v0o6eAdEf9w/exec', {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Important for Google Apps Script
+                  });
+                  
+                  // Show reach-out success message
+                  successTitle.textContent = "Message received.";
+                  successMessage.textContent = `Got it, ${nameInput.value}. We'll be in touch soon to talk shop.`;
+                }
+
+                // Show success message, hide form
+                formContent?.classList.add('hidden');
+                successDiv?.classList.remove('hidden');
+                successDiv?.classList.add('flex');
+                form?.reset();
+                
+              } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Something went wrong. Please try again.');
+              } finally {
+                // Re-enable button
+                button.disabled = false;
+                button.textContent = originalText;
+              }
+            });
+          });
+        });
+      </script>
+
+    </div>
 
 </aside>
 
